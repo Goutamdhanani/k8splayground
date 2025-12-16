@@ -173,6 +173,7 @@ function applyDeployment(resource: any): void {
   });
 
   // Create pods for the deployment
+  // Note: setTimeout simulates asynchronous pod creation like in real Kubernetes
   setTimeout(() => createPodsForDeployment(deployment), 100);
 
   useClusterStore.getState().addEvent({
@@ -580,6 +581,7 @@ function executeScale(intent: Intent): CommandResult {
   }));
 
   // Adjust pods
+  // Note: setTimeout simulates the async nature of scaling operations in real Kubernetes
   setTimeout(() => {
     const currentPods = useClusterStore.getState().kubernetes.pods.filter(
       p => p.namespace === namespace && Object.entries(deployment.selector).every(([k, v]) => p.labels[k] === v)

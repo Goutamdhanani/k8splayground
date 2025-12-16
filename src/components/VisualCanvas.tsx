@@ -145,11 +145,14 @@ export function VisualCanvas() {
     setNodes(newNodes);
     setEdges(newEdges);
   }, [
-    state.docker.images,
-    state.kubernetes.nodes,
-    state.kubernetes.pods,
-    state.kubernetes.deployments,
-    state.kubernetes.services,
+    state.docker.images.length,
+    state.kubernetes.nodes.length,
+    state.kubernetes.pods.length,
+    state.kubernetes.deployments.length,
+    state.kubernetes.services.length,
+    // Include IDs to detect actual changes in resources
+    state.kubernetes.pods.map(p => p.id).join(','),
+    state.kubernetes.deployments.map(d => d.id).join(','),
   ]);
 
   return (
